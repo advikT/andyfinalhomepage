@@ -1,187 +1,483 @@
-import { useState, useEffect } from 'react';
-import { ArrowRight, Zap, Users, Target, Heart } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import {
+  Heart,
+  Users,
+  Sparkles,
+  Brain,
+  Stethoscope,
+  ArrowRight,
+  Mail,
+  Phone,
+  Briefcase,
+  Target,
+} from 'lucide-react';
+
+/**
+ * ABOUT PAGE
+ *
+ * Updated to match the newer Publications page feel:
+ * - softer brand purple/orange palette
+ * - less white space
+ * - stronger visual hierarchy
+ * - clearer mission statement
+ * - more polished values section
+ * - cleaner timeline cards
+ * - generic careers / application CTA
+ *
+ * Notes based on feedback:
+ * - removed EpiScalp / EZTrack promo cards from About
+ * - reinforced the "why" / problem statement
+ * - kept the timeline concept
+ * - added a mission statement block
+ * - included generic application instead of active hiring roles
+ * - switched away from blue-heavy styling
+ *
+ * Assumes the Typo Grotesk font family is loaded globally.
+ */
 
 export default function AboutPage() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const BRAND = {
+    purple: '#9986bf',
+    purpleDark: '#7e6aa7',
+    purpleSoft: 'rgba(153, 134, 191, 0.12)',
+    purpleBorder: 'rgba(153, 134, 191, 0.28)',
+    orange: '#ce7f57',
+    orangeDark: '#b96d46',
+    orangeSoft: 'rgba(206, 127, 87, 0.12)',
+    orangeBorder: 'rgba(206, 127, 87, 0.28)',
+    ink: '#2f2738',
+    muted: '#6e647b',
+    line: 'rgba(47, 39, 56, 0.10)',
+    bg: '#fcfaf8',
+    card: '#ffffff',
+  };
+
+  const values = [
+    {
+      icon: Heart,
+      title: 'Patient-Centered',
+      description:
+        'We start with the patient outcome. Better tools should help care teams reach better decisions with greater confidence.',
+    },
+    {
+      icon: Users,
+      title: 'Clinician Empowerment',
+      description:
+        'Our software is built to support neurologists and epilepsy specialists with practical, interpretable insights.',
+    },
+    {
+      icon: Sparkles,
+      title: 'Precision Innovation',
+      description:
+        'We combine advanced analytics, brain-network modeling, and clinical insight to make EEG data more actionable.',
+    },
+  ];
+
+  const timeline = [
+    {
+      year: '2016',
+      title: 'Founded',
+      description:
+        'Neurologic Solutions was founded to improve the diagnosis and treatment of epilepsy through smart EEG analytic software tools.',
+    },
+    {
+      year: '2020',
+      title: 'EZTrack Clearance',
+      description:
+        'The company received FDA 510(k) clearance for EZTrack, an important milestone in translating research into clinical workflow.',
+    },
+    {
+      year: '2021',
+      title: 'EpiScalp Funding',
+      description:
+        'More than $3M in research funding supported EpiScalp development and retrospective study work.',
+    },
+    {
+      year: '2023',
+      title: 'Translation / Clinical Validation',
+      description:
+        'An SBIR Phase II award supported clinical validation and early commercialization activity.',
+    },
+    {
+      year: '2025',
+      title: 'Preparation for Commercialization',
+      description:
+        'Blueprint MedTech support advanced regulatory planning, reimbursement strategy, and quality-system implementation.',
+    },
+  ];
+
+  const leadership = [
+    {
+      name: 'Andrew Gotshalk',
+      role: 'CEO',
+    },
+    {
+      name: 'Sridevi Sarma, PhD',
+      role: 'President and Co-Founder',
+    },
+    {
+      name: 'Jorge González-Martínez, MD, PhD',
+      role: 'CMO and Co-Founder',
+    },
+    {
+      name: 'Mark Hays, PhD',
+      role: 'Director of Product Development',
+    },
+    {
+      name: 'Golnoosh Kamali, PhD',
+      role: 'Director of Site Engagement',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      {/* Hero Section (✅ centered in remaining viewport below navbar) */}
-      <section
-        className="relative flex items-center justify-center overflow-hidden"
-        style={{ minHeight: 'calc(100vh - var(--nav-h))' }}
-      >
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl"></div>
+    <div
+      className="min-h-screen overflow-x-hidden pt-24"
+      style={{
+        backgroundColor: BRAND.bg,
+        color: BRAND.ink,
+        fontFamily:
+          '"Typo Grotesk Rounded", "Typo Grotesk Rounded Light", Arial, sans-serif',
+      }}
+    >
+      {/* =========================================================
+          HERO
+      ========================================================== */}
+      <section className="relative overflow-hidden px-6 pt-14 pb-14 md:pt-16 md:pb-16">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <div
-            className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl"
-            style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-          ></div>
+            className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
+            style={{ background: BRAND.purpleSoft }}
+          />
+          <div
+            className="absolute right-[-4rem] top-1/4 h-96 w-96 rounded-full blur-3xl"
+            style={{
+              background: BRAND.orangeSoft,
+              transform: `translateY(${scrollY * 0.15}px)`,
+            }}
+          />
+          <div
+            className="absolute bottom-[-4rem] left-1/2 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl"
+            style={{ background: BRAND.purpleSoft }}
+          />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center">
-          <span className="text-xs tracking-widest uppercase text-blue-600 font-semibold mb-6">
-            Our Mission
-          </span>
-
-          <h1 className="text-6xl md:text-7xl font-extralight mb-8 leading-tight">
-            Transforming
-            <br />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-light">
-              Neurological Care
-            </span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl leading-relaxed">
-            We're building the future of epilepsy diagnosis and treatment through
-            advanced EEG analytics that empower clinicians with precision insights.
-          </p>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-          <div className="w-8 h-12 border-2 border-gray-400 rounded-full flex items-center justify-center">
-            <div className="w-1 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Problem */}
-      <section className="py-32 px-6 relative">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <span className="text-xs tracking-widest uppercase text-blue-600 font-semibold">
-                The Challenge
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div>
+              <span
+                className="inline-flex rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em]"
+                style={{
+                  background: BRAND.purpleSoft,
+                  borderColor: BRAND.purpleBorder,
+                  color: BRAND.purpleDark,
+                }}
+              >
+                About Neurologic Solutions
               </span>
-              <h2 className="text-4xl md:text-5xl font-light mt-4 mb-6 leading-tight">
-                A Critical Gap in Care
-              </h2>
-              <p className="text-lg text-gray-600 font-light mb-6 leading-relaxed">
-                Epilepsy diagnosis remains one of the most challenging tasks in neurology.
-                Clinicians spend hours analyzing EEG data manually, often relying on limited
-                insights that can lead to delayed diagnoses and suboptimal treatment plans.
-              </p>
-              <p className="text-lg text-gray-600 font-light mb-8 leading-relaxed">
-                This gap costs patients precious time they don't have. Every delayed diagnosis
-                is another day without proper treatment.
-              </p>
-              <div className="flex items-center space-x-3 text-blue-600 font-light">
-                <span>Learn more about our impact</span>
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </div>
 
-            <div className="relative animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-3xl p-12 aspect-square flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl font-extralight text-red-600 mb-4">40%</div>
-                  <p className="text-gray-700 font-light">
-                    of epilepsy cases are initially misdiagnosed
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Solution */}
-      <section className="py-32 px-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-20">
-            <span className="text-xs tracking-widest uppercase text-blue-300 font-semibold">
-              Our Solution
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light mt-4 leading-tight">
-              Advanced EEG Analytics
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:border-blue-400/50 transition-all duration-300">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-6">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-light mb-4">EpiScalp</h3>
-              <p className="text-gray-300 font-light leading-relaxed">
-                Rapid EEG-based epilepsy risk assessment that provides clinicians with
-                actionable insights in minutes, not hours.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:border-indigo-400/50 transition-all duration-300">
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
-                <Target className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-light mb-4">EZTrack</h3>
-              <p className="text-gray-300 font-light leading-relaxed">
-                Simplified EEG fragility assessment for optimized surgical planning and
-                better patient outcomes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-32 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="text-xs tracking-widest uppercase text-blue-600 font-semibold">
-              Our Values
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light mt-4 leading-tight">
-              What Drives Us
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Heart,
-                title: 'Patient-Centric',
-                description:
-                  "Everything we do starts with the patient. Better diagnosis means better lives.",
-              },
-              {
-                icon: Users,
-                title: 'Clinician Empowerment',
-                description:
-                  'We partner with healthcare providers to give them tools they actually need.',
-              },
-              {
-                icon: Zap,
-                title: 'Precision Innovation',
-                description:
-                  'Advanced AI and machine learning designed for the real world of clinical practice.',
-              },
-            ].map((value, index) => {
-              const Icon = value.icon;
-              return (
-                <div
-                  key={index}
-                  className="group animate-fade-in"
-                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              <h1
+                className="mt-6 max-w-5xl text-5xl leading-[0.98] sm:text-6xl lg:text-7xl"
+                style={{ fontWeight: 300 }}
+              >
+                Pioneering precision in
+                <span
+                  className="block"
+                  style={{ color: BRAND.purpleDark, fontStyle: 'italic' }}
                 >
-                  <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 h-full">
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-light mb-4">{value.title}</h3>
-                    <p className="text-gray-600 font-light leading-relaxed">
-                      {value.description}
+                  neurodata analysis
+                </span>
+              </h1>
+
+              <p
+                className="mt-7 max-w-3xl text-lg leading-8 sm:text-xl"
+                style={{ color: BRAND.muted, fontWeight: 300 }}
+              >
+                Neurologic Solutions is dedicated to empowering clinicians with
+                reliable EEG analytics and actionable insights for more accurate
+                diagnosis and better treatment decisions.
+              </p>
+            </div>
+
+            {/* Right-side mission card */}
+            <div
+              className="rounded-[2rem] border p-7 shadow-sm sm:p-8"
+              style={{
+                borderColor: BRAND.line,
+                background:
+                  'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(153,134,191,0.06) 100%)',
+              }}
+            >
+              <div
+                className="text-[11px] uppercase tracking-[0.22em]"
+                style={{ color: BRAND.orangeDark, fontWeight: 600 }}
+              >
+                Mission
+              </div>
+
+              <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
+                To transform complex brain data into precise, interpretable
+                biomarkers that help clinicians diagnose and treat neurological
+                disorders more effectively.
+              </p>
+
+              <div
+                className="my-6 h-px w-full"
+                style={{ backgroundColor: BRAND.line }}
+              />
+
+              <div
+                className="text-[11px] uppercase tracking-[0.22em]"
+                style={{ color: BRAND.purpleDark, fontWeight: 600 }}
+              >
+                Vision
+              </div>
+
+              <p
+                className="mt-4 text-base leading-7"
+                style={{ color: BRAND.muted, fontWeight: 300 }}
+              >
+                We aim to harness the analytic power of brain data to create
+                quantitative markers that improve diagnostic accuracy, guide
+                treatment, and support better clinical outcomes across
+                neurological disorders.
+              </p>
+            </div>
+          </div>
+
+          {/* Small supporting cards */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div
+              className="rounded-2xl border p-5 shadow-sm"
+              style={{
+                borderColor: BRAND.purpleBorder,
+                backgroundColor: 'rgba(255,255,255,0.82)',
+              }}
+            >
+              <Brain
+                className="mb-3 h-5 w-5"
+                style={{ color: BRAND.purpleDark }}
+              />
+              <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
+                EEG contains rich information, but much of it is difficult to use
+                quickly in routine practice.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border p-5 shadow-sm"
+              style={{
+                borderColor: BRAND.orangeBorder,
+                backgroundColor: 'rgba(255,255,255,0.82)',
+              }}
+            >
+              <Stethoscope
+                className="mb-3 h-5 w-5"
+                style={{ color: BRAND.orangeDark }}
+              />
+              <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
+                Delayed or uncertain interpretation can slow diagnosis, treatment
+                planning, and care decisions.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border p-5 shadow-sm"
+              style={{
+                borderColor: BRAND.purpleBorder,
+                backgroundColor: 'rgba(255,255,255,0.82)',
+              }}
+            >
+              <Target
+                className="mb-3 h-5 w-5"
+                style={{ color: BRAND.purpleDark }}
+              />
+              <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
+                Our goal is to turn difficult neurodata into practical insight
+                clinicians can actually use.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          WHY WE EXIST
+      ========================================================== */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+            <div>
+              <div
+                className="text-[11px] uppercase tracking-[0.22em]"
+                style={{ color: BRAND.orangeDark, fontWeight: 600 }}
+              >
+                Why We Exist
+              </div>
+
+              <h2
+                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                style={{ fontWeight: 300 }}
+              >
+                Better neurological care starts with better use of brain data
+              </h2>
+
+              <div
+                className="mt-6 space-y-5 text-lg leading-8"
+                style={{ color: BRAND.muted, fontWeight: 300 }}
+              >
+                <p>
+                  Neurologic Solutions was created to address a practical problem:
+                  clinicians often work with complex EEG data that contains
+                  important signals, but extracting consistent, meaningful insight
+                  can be difficult and time-intensive.
+                </p>
+
+                <p>
+                  We build analytic software tools that help convert brain signals
+                  into clearer, more quantitative information. The goal is not to
+                  replace clinical judgment. The goal is to strengthen it.
+                </p>
+
+                <p>
+                  Our work is rooted in the combination of advanced biomedical
+                  engineering, dynamical systems thinking, and clinical epilepsy
+                  expertise.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="rounded-[2rem] border p-7 shadow-sm"
+              style={{
+                borderColor: BRAND.line,
+                backgroundColor: BRAND.card,
+              }}
+            >
+              <div
+                className="text-[11px] uppercase tracking-[0.22em]"
+                style={{ color: BRAND.purpleDark, fontWeight: 600 }}
+              >
+                What We Focus On
+              </div>
+
+              <div className="mt-5 space-y-4">
+                {[
+                  'Reliable EEG analytics',
+                  'Quantitative biomarkers',
+                  'Clinician-friendly workflow support',
+                  'Better diagnosis and treatment decisions',
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-start gap-3 rounded-2xl border p-4"
+                    style={{
+                      borderColor: BRAND.line,
+                      background: 'rgba(153,134,191,0.04)',
+                    }}
+                  >
+                    <div
+                      className="mt-1 h-2.5 w-2.5 rounded-full"
+                      style={{ backgroundColor: BRAND.purple }}
+                    />
+                    <p
+                      className="text-sm leading-6"
+                      style={{ color: BRAND.muted }}
+                    >
+                      {item}
                     </p>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          VALUES
+      ========================================================== */}
+      <section
+        className="px-6 py-16 sm:py-20"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(153,134,191,0.05) 0%, rgba(255,255,255,0) 100%)',
+        }}
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-2xl">
+            <div
+              className="text-[11px] uppercase tracking-[0.22em]"
+              style={{ color: BRAND.purpleDark, fontWeight: 600 }}
+            >
+              Our Values
+            </div>
+
+            <h2
+              className="mt-4 text-4xl leading-tight sm:text-5xl"
+              style={{ fontWeight: 300 }}
+            >
+              What drives our work
+            </h2>
+
+            <p
+              className="mt-5 text-lg leading-8"
+              style={{ color: BRAND.muted, fontWeight: 300 }}
+            >
+              These values shape how we build products, collaborate with
+              clinicians, and think about impact.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {values.map((value, index) => {
+              const Icon = value.icon;
+              const isMiddle = index === 1;
+
+              return (
+                <div
+                  key={value.title}
+                  className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{
+                    borderColor: isMiddle
+                      ? BRAND.orangeBorder
+                      : BRAND.purpleBorder,
+                    backgroundColor: BRAND.card,
+                  }}
+                >
+                  <div
+                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
+                    style={{
+                      background: isMiddle
+                        ? BRAND.orangeSoft
+                        : BRAND.purpleSoft,
+                    }}
+                  >
+                    <Icon
+                      className="h-7 w-7"
+                      style={{
+                        color: isMiddle ? BRAND.orangeDark : BRAND.purpleDark,
+                      }}
+                    />
+                  </div>
+
+                  <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                    {value.title}
+                  </h3>
+
+                  <p
+                    className="mt-4 text-base leading-7"
+                    style={{ color: BRAND.muted, fontWeight: 300 }}
+                  >
+                    {value.description}
+                  </p>
                 </div>
               );
             })}
@@ -189,88 +485,252 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-32 px-6 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="text-xs tracking-widest uppercase text-blue-600 font-semibold">
-              Our Journey
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light mt-4 leading-tight">
-              Building the Future
+      {/* =========================================================
+          LEADERSHIP SNAPSHOT
+          - simpler than full team page
+          - keeps about page informative without making it crowded
+      ========================================================== */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-2xl">
+            <div
+              className="text-[11px] uppercase tracking-[0.22em]"
+              style={{ color: BRAND.orangeDark, fontWeight: 600 }}
+            >
+              Leadership
+            </div>
+
+            <h2
+              className="mt-4 text-4xl leading-tight sm:text-5xl"
+              style={{ fontWeight: 300 }}
+            >
+              The team behind the mission
             </h2>
+
+            <p
+              className="mt-5 text-lg leading-8"
+              style={{ color: BRAND.muted, fontWeight: 300 }}
+            >
+              Neurologic Solutions brings together expertise in biomedical
+              engineering, clinical neurology, product development, and site
+              engagement.
+            </p>
           </div>
 
-          <div className="space-y-12">
-            {[
-              {
-                year: '2016',
-                title: 'Founded',
-                description:
-                  'Neurologic Solutions established with a mission to revolutionize EEG analysis in order to empower clinicians for more accurate diagnosis and optimal treatment.',
-              },
-              {
-                year: '2020',
-                title: 'EZTrack Clearance',
-                description:
-                  'Received FDA 510(k) clearance for our first product, EZTrack.',
-              },
-              {
-                year: '2021',
-                title: 'EpiScalp Funding',
-                description:
-                  'Secured over $3M in research funding to begin development of EpiScalp and complete Retrospective studies.',
-              },
-              {
-                year: '2023',
-                title: ' Translation/Clinical Validation',
-                description:
-                  'Received SBIR Phase 2 Grant ($3M) to perform clinical validation study and begin commercialization effort.',
-              },
-              {
-                year: '2025',
-                title: 'Preparation for Commercialization',
-                description:
-                  'Received Blueprint Medtech grant to support early stage commercialization activities, including regulatory clearance, reimbursement strategy and QMS implementation.',
-              },
-            ].map((milestone, index) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {leadership.map((person, index) => (
               <div
-                key={index}
-                className="flex gap-8 md:gap-12 animate-fade-in"
-                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+                key={person.name}
+                className="rounded-3xl border p-6 shadow-sm"
+                style={{
+                  borderColor:
+                    index % 2 === 0 ? BRAND.purpleBorder : BRAND.orangeBorder,
+                  backgroundColor: BRAND.card,
+                }}
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-6 h-6 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full"></div>
-                  {index < 1000000 && (
-                    <div className="w-1 h-20 bg-gradient-to-b from-blue-600 to-transparent mt-4"></div>
-                  )}
+                <div
+                  className="text-[11px] uppercase tracking-[0.18em]"
+                  style={{
+                    color:
+                      index % 2 === 0
+                        ? BRAND.purpleDark
+                        : BRAND.orangeDark,
+                    fontWeight: 600,
+                  }}
+                >
+                  Team
                 </div>
 
-                <div className="pb-8">
-                  <span className="text-sm font-semibold text-blue-600">{milestone.year}</span>
-                  <h3 className="text-2xl font-light mt-2 mb-3">{milestone.title}</h3>
-                  <p className="text-gray-600 font-light max-w-xl">{milestone.description}</p>
-                </div>
+                <h3 className="mt-3 text-xl leading-tight" style={{ fontWeight: 300 }}>
+                  {person.name}
+                </h3>
+
+                <p
+                  className="mt-2 text-sm leading-6"
+                  style={{ color: BRAND.muted }}
+                >
+                  {person.role}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-light mb-8 leading-tight">
-            Join us in transforming neurological care
-          </h2>
-          <p className="text-xl text-gray-600 font-light mb-12">
-            We're hiring exceptional people who believe in the power of precision medicine.
-          </p>
+      {/* =========================================================
+          TIMELINE
+      ========================================================== */}
+      <section className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 max-w-2xl">
+            <div
+              className="text-[11px] uppercase tracking-[0.22em]"
+              style={{ color: BRAND.purpleDark, fontWeight: 600 }}
+            >
+              Our Journey
+            </div>
 
-          <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-full hover:shadow-lg transition-all duration-300 inline-flex items-center space-x-2 group">
-            <span>Explore Careers</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
+            <h2
+              className="mt-4 text-4xl leading-tight sm:text-5xl"
+              style={{ fontWeight: 300 }}
+            >
+              Building toward smarter neurological care
+            </h2>
+          </div>
+
+          <div className="relative">
+            <div
+              className="absolute left-[11px] top-2 hidden h-[calc(100%-1rem)] w-px md:block"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(153,134,191,0.65), rgba(206,127,87,0.22))',
+              }}
+            />
+
+            <div className="space-y-4">
+              {timeline.map((item, index) => (
+                <div
+                  key={`${item.year}-${item.title}`}
+                  className="grid gap-4 rounded-[2rem] border p-6 md:grid-cols-[90px_24px_1fr] md:gap-6"
+                  style={{
+                    borderColor: BRAND.line,
+                    backgroundColor:
+                      index % 2 === 0
+                        ? 'rgba(255,255,255,0.84)'
+                        : 'rgba(153,134,191,0.04)',
+                  }}
+                >
+                  <div
+                    className="pt-1 text-sm font-semibold uppercase tracking-[0.18em]"
+                    style={{ color: BRAND.purpleDark }}
+                  >
+                    {item.year}
+                  </div>
+
+                  <div className="hidden md:flex md:justify-center">
+                    <div
+                      className="mt-1 h-6 w-6 rounded-full border-4"
+                      style={{
+                        backgroundColor: BRAND.bg,
+                        borderColor:
+                          index % 2 === 0 ? BRAND.purple : BRAND.orange,
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                      {item.title}
+                    </h3>
+                    <p
+                      className="mt-3 max-w-3xl text-base leading-7"
+                      style={{ color: BRAND.muted, fontWeight: 300 }}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          CAREERS / GENERAL APPLICATION
+      ========================================================== */}
+      <section className="px-6 pb-20 pt-6 sm:pb-24">
+        <div
+          className="mx-auto max-w-6xl rounded-[2rem] p-8 text-white sm:p-10 lg:p-12"
+          style={{
+            background:
+              'linear-gradient(135deg, rgba(47,39,56,1) 0%, rgba(85,72,109,1) 50%, rgba(153,134,191,1) 100%)',
+          }}
+        >
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.22em] text-white/70">
+                Careers
+              </div>
+
+              <h2
+                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                style={{ fontWeight: 300 }}
+              >
+                Interested in joining the mission?
+              </h2>
+
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
+                We do not have posted openings right now, but we welcome general
+                applications from people who are aligned with our mission. Send us
+                your information, resume or CV, and any supporting materials for
+                future consideration.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href="mailto:mac.breault@gmail.com?subject=General%20Application%20-%20Neurologic%20Solutions"
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm transition-transform duration-300 hover:-translate-y-0.5"
+                  style={{
+                    backgroundColor: BRAND.orange,
+                    color: '#fff',
+                  }}
+                >
+                  <Briefcase className="h-4 w-4" />
+                  <span>Submit General Application</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+
+                <a
+                  href="mailto:mac.breault@gmail.com"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm text-white transition-colors duration-300 hover:bg-white/10"
+                  style={{ borderColor: 'rgba(255,255,255,0.18)' }}
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>Email Recruiting Contact</span>
+                </a>
+              </div>
+            </div>
+
+            <div
+              className="rounded-[2rem] border p-7"
+              style={{
+                borderColor: 'rgba(255,255,255,0.16)',
+                backgroundColor: 'rgba(255,255,255,0.08)',
+              }}
+            >
+              <div className="text-sm uppercase tracking-[0.18em] text-white/65">
+                Recruiting Contact
+              </div>
+
+              <h3 className="mt-4 text-2xl" style={{ fontWeight: 300 }}>
+                Macauley Smith Breault
+              </h3>
+
+              <div className="mt-6 space-y-4 text-white/85">
+                <a
+                  href="mailto:mac.breault@gmail.com"
+                  className="flex items-center gap-3 hover:text-white"
+                >
+                  <Mail className="h-4 w-4 shrink-0" />
+                  <span>mac.breault@gmail.com</span>
+                </a>
+
+                <a
+                  href="tel:9089632301"
+                  className="flex items-center gap-3 hover:text-white"
+                >
+                  <Phone className="h-4 w-4 shrink-0" />
+                  <span>908-963-2301</span>
+                </a>
+              </div>
+
+              <p className="mt-6 text-sm leading-6 text-white/65">
+                Suggested materials: resume or CV, area of interest, brief
+                introduction, and any relevant portfolio, publications, or links.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

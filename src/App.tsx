@@ -14,6 +14,7 @@ import AboutPage from "./components/AboutPage";
 import TeamPage from "./components/TeamPage";
 import NewsPage from "./components/NewsPage";
 import PublicationsPage from "./components/PublicationsPage";
+import ClinicalEvidencePage from "./components/ClinicalEvidence.tsx";
 import ContactPage from "./components/ContactPage";
 import SupportPage from "./components/SupportPage";
 import ProfilePage from "./components/ProfilePage";
@@ -78,7 +79,12 @@ export default function App() {
           <Route path="/clinical" element={<Placeholder title="Clinical" />} />
           <Route
             path="/clinical-evidence"
-            element={<Placeholder title="Clinical evidence" />}
+            element={
+              <>
+                <ClinicalEvidencePage />
+                <Footer />
+              </>
+            }
           />
           <Route
             path="/publications"
