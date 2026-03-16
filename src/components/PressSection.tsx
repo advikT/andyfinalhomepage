@@ -1,118 +1,130 @@
-import { Newspaper } from 'lucide-react';
+import { Newspaper, ArrowRight, ExternalLink } from 'lucide-react';
+import { newsItems } from '../data/news';
 
-const pressItems = [
-  {
-    date: '3 November 2024',
-    headline: 'Sri Sarma wins inaugural Pitch It On! competition',
-    link: 'https://hub.jhu.edu/2020/11/03/sri-sarma-wins-accelherator-pitch-competition/',
-  },
-  {
-    date: '1 April 2021',
-    headline:
-      'Neurologic Solutions Granted FDA 510K Clearance for its Seizure Onset Zone Detection Software',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-granted-fda-510k-clearance-for-its-seizure-onset-zone-detection-software/',
-  },
-  {
-    date: '17 June 2021',
-    headline:
-      'Neurologic Solutions Awarded A Phase 1 Small Business Innovation Research Grant from the National Science Foundation',
-    link: 'https://time.com/collection/best-inventions-2024/7083065/oura-ring-gen3/',
-  },
-  {
-    date: '31 August 2021',
-    headline: 'Sarma named a recipient of Thalheimer Fund Grant',
-    link: 'https://www.bme.jhu.edu/news-events/news/sarma-named-a-recipient-of-thalheimer-fund-grant/',
-  },
-  {
-    date: '15 June 2024',
-    headline: 'Neurologic Solutions Hires Andrew Gotshalk',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-hires-andrew-gotshalk/',
-  },
-  {
-    date: '15 August 2024',
-    headline: 'Neurologic Solutions Receives the SBIR Phase 2 Award',
-    link: 'https://www.sbir.gov/awards/213755',
-  },
-  {
-    date: '15 September 2024',
-    headline:
-      'Neurologic Solutions Hires Mark Hays and Golnoosh Kamali',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-hires-mark-hays-and-golnoosh-kamali/',
-  },
-  {
-    date: '22 January 2025',
-    headline:
-      'New epilepsy tool could cut misdiagnoses by nearly 70% using routine EEGs',
-    link: 'https://hub.jhu.edu/2025/01/22/episcalp-epilepsy-diagnosis/',
-  },
-  {
-    date: '25 September 2025',
-    headline:
-      'Baltimore biotech researchers court investors at Johns Hopkins showcase',
-    link: 'https://technical.ly/entrepreneurship/johns-hopkins-innovation-summit-2025/?nab=1',
-  },
-  {
-    date: '7 December 2025',
-    headline:
-      'Neurologic Solutions Gets the Maryland Innovation Initiative Technology Assessment Award',
-    link: 'https://www.tedcomd.com/mii-universityprojects',
-  },
-];
+// ─── Brand tokens ──────────────────────────────────────────────────────────────
+const B = {
+  purple:       '#9986bf',
+  purpleDark:   '#7e6aa7',
+  purpleSoft:   'rgba(153,134,191,0.12)',
+  purpleBorder: 'rgba(153,134,191,0.28)',
+  orange:       '#ce7f57',
+  orangeDark:   '#b96d46',
+  orangeSoft:   'rgba(206,127,87,0.12)',
+  orangeBorder: 'rgba(206,127,87,0.28)',
+  ink:          '#2f2738',
+  muted:        '#6e647b',
+  line:         'rgba(47,39,56,0.10)',
+  bg:           '#fcfaf8',
+  card:         '#ffffff',
+};
+
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 export default function PressSection() {
-  const lastThreeItems = pressItems.slice(-3);
+  const latestItems = newsItems
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   return (
-    <section className="py-24 px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-3 mb-6">
-            <Newspaper className="w-6 h-6 text-blue-700" />
-            <h2 className="text-3xl font-light text-gray-900">
-              In the <span className="text-blue-700"> <strong>Press</strong> </span>
+    <section
+      className="py-20 px-6 sm:py-24"
+      style={{ backgroundColor: B.bg, color: B.ink }}
+    >
+      <div className="max-w-6xl mx-auto">
+
+        {/* ── Header ───────────────────────────────────────────────────────── */}
+        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div
+              className="text-[11px] uppercase tracking-[0.22em] mb-4"
+              style={{ color: B.purpleDark, fontWeight: 600 }}
+            >
+              Media &amp; Press
+            </div>
+            <h2
+              className="text-4xl sm:text-5xl leading-[1.0]"
+              style={{ fontWeight: 300 }}
+            >
+              In the{' '}
+              <span style={{ color: B.purpleDark, fontStyle: 'italic' }}>
+                press
+              </span>
             </h2>
           </div>
+
+          <a
+            href="/blog-news"
+            className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
+            style={{ borderColor: B.purpleBorder, color: B.purpleDark }}
+          >
+            <Newspaper className="h-4 w-4" />
+            All news &amp; press
+          </a>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {lastThreeItems.map((item, index) => (
+        {/* ── Cards ────────────────────────────────────────────────────────── */}
+        <div className="grid gap-4 md:grid-cols-3">
+          {latestItems.map((item, index) => (
             <a
               key={index}
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className="group flex flex-col rounded-[1.5rem] border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+              style={{
+                borderColor: index === 0 ? B.purpleBorder : B.line,
+                backgroundColor: index === 0 ? B.purpleSoft : B.card,
+                boxShadow: index === 0 ? `inset 3px 0 0 ${B.purpleDark}` : undefined,
+              }}
             >
-              <div
-                className="
-                  bg-[#F7F9FC]
-                  rounded-2xl
-                  p-8
-                  border-l-4
-                  border-blue-700
-                  hover:bg-[#EEF3F8]
-                  transition-colors
-                  duration-300
-                "
+              {/* Date */}
+              <p
+                className="text-[11px] uppercase tracking-[0.18em] mb-4"
+                style={{ color: B.orangeDark, fontWeight: 600 }}
               >
-                <p className="text-sm text-orange-600 mb-4 uppercase tracking-wide">
-                  {item.date}
-                </p>
-                <h3 className="text-xl font-light leading-relaxed text-gray-900">
-                  {item.headline}
-                </h3>
+                {formatDate(item.date)}
+              </p>
+
+              {/* Title */}
+              <h3
+                className="flex-1 text-base leading-7 mb-5"
+                style={{ color: B.ink, fontWeight: 400 }}
+              >
+                {item.title}
+              </h3>
+
+              {/* Link indicator */}
+              <div
+                className="flex items-center gap-1.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ color: B.purpleDark }}
+              >
+                <ExternalLink className="h-3 w-3" />
+                Read article
               </div>
             </a>
           ))}
         </div>
-         <div className="text-center mt-12">
+
+        {/* ── View all CTA ─────────────────────────────────────────────────── */}
+        <div className="mt-8 flex justify-center">
           <a
-            href="./blog-news"
-            className="text-xl text-blue-700 hover:text-orange-600 underline transition-colors duration-300"
+            href="/blog-news"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            style={{ backgroundColor: B.purpleDark, color: '#fff' }}
           >
-            View more
+            <Newspaper className="h-4 w-4" />
+            View all news &amp; press
+            <ArrowRight className="h-4 w-4" />
           </a>
         </div>
+
       </div>
     </section>
   );
